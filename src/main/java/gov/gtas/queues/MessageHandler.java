@@ -22,7 +22,7 @@ public class MessageHandler {
     @Value("${mq.connection}")
     private String DEFAULT_BROKER_URL;
 
-    private static final String INBOUND_QUEUE = "GTAS_INBOUND_Q_REDIS";
+    private static final String FORWARDING_TO_THIS_QUEUE = "GTAS_INBOUND_Q_REDIS";
 
     private final
     JmsTemplate jmsTemplateFile;
@@ -32,11 +32,11 @@ public class MessageHandler {
         this.jmsTemplateFile = jmsTemplateFile;
     }
 
-    @JmsListener(destination = INBOUND_QUEUE, containerFactory = "awsContainerFactory")
+    @JmsListener(destination = FORWARDING_TO_THIS_QUEUE, containerFactory = "awsContainerFactory")
     public void receiveMessage(final Message<?> message) {
         logger.info("++++++++Message Received++++++++++++");
         try {
-            jmsTemplateFile.convertAndSend(INBOUND_QUEUE, message);
+            jmsTemplateFile.convertAndSend(FORWARDING_TO_THIS_QUEUE, message);
         } catch (Exception ex) {
             logger.error("Error forwarding message", ex);
         }
