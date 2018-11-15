@@ -30,18 +30,18 @@ public class MessageHandler {
     private static final String INBOUND_QUEUE = "GTAS_INBOUND_Q_REDIS";
 
     private final
-    JmsTemplate jmsTemplate;
+    JmsTemplate jmsTemplateFile;
 
     @Autowired
     public MessageHandler(JmsTemplate jmsTemplateFile) {
-        this.jmsTemplate = jmsTemplateFile;
+        this.jmsTemplateFile = jmsTemplateFile;
     }
 
     @JmsListener(destination = INBOUND_QUEUE, containerFactory = "awsContainerFactory")
     public void receiveMessage(final Message<?> message) {
         logger.info("++++++++Message Received++++++++++++");
         try {
-            jmsTemplate.convertAndSend(OUTBOUND_QUEUE, message);
+            jmsTemplateFile.convertAndSend(OUTBOUND_QUEUE, message);
         }
         catch (Exception ex){
             logger.error("Error forwarding message", ex);
