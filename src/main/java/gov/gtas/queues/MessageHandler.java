@@ -22,9 +22,6 @@ public class MessageHandler {
     @Value("${mq.connection}")
     private String DEFAULT_BROKER_URL;
 
-    @Value("${mq.redis.queue.inbound}")
-    private String OUTBOUND_QUEUE;
-
     private static final String INBOUND_QUEUE = "GTAS_INBOUND_Q_REDIS";
 
     private final
@@ -39,7 +36,7 @@ public class MessageHandler {
     public void receiveMessage(final Message<?> message) {
         logger.info("++++++++Message Received++++++++++++");
         try {
-            jmsTemplateFile.convertAndSend(OUTBOUND_QUEUE, message);
+            jmsTemplateFile.convertAndSend(INBOUND_QUEUE, message);
         } catch (Exception ex) {
             logger.error("Error forwarding message", ex);
         }
