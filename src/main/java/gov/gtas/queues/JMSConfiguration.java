@@ -32,8 +32,6 @@ public class JMSConfiguration {
     @Bean(name = "awsMqJmsBean")
     public ConnectionFactory awsConnectionFactory() {
         ProviderConfiguration providerConfiguration = new ProviderConfiguration();
-        System.out.println(DEFAULT_BROKER_URL);
-        System.out.println(AWS_DEFAULT_BROKER_URL);
         AmazonSQS amazonSQSClient = AmazonSQSClientBuilder
                 .standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(AWS_DEFAULT_BROKER_URL, awsRegion))
