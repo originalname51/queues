@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>queues</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Simple application to forward messages from sqs to activemq</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
